@@ -18,5 +18,9 @@ class SliceGen:
     def __iter__(self):
         index = self.start
         while index < self.stop:
-            yield self.obj[index]
-            index += self.step
+            if hasattr(self.obj, 'items'): #test if it's a dictionary
+                yield list(self.obj.items())[index]
+                index += self.step
+            else:
+                yield self.obj[index]
+                index += self.step
